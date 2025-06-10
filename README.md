@@ -3,4 +3,5 @@ build simple app using cubit to practic to cubit principles
 
 contain:
 - separete ui & business logic
-- using cubit as state managment 
+- using cubit as state managment
+- create task model and using copyWith constractor
