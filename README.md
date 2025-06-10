@@ -22,7 +22,7 @@ This app is intended as a learning project to:
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/yourusername/todo_cubit_app.git
+git clone https://github.com/mahaabdulla/todo_cubit_app.git
 cd todo_cubit_app
 flutter pub get
 flutter run
