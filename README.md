@@ -27,3 +27,10 @@ This app is built as a learning project to:
 - Apply **Equatable** to simplify equality checks in states and models
 - Practice clean code with separation of concerns (UI vs. logic)
 - Explore reactive UI updates based on state
+
+This app is built as a learning project to:
+
+- Understand how **Cubit** works
+- Apply **Equatable** to simplify equality checks in states and models
+- Practice clean code with separation of concerns (UI vs. logic)
+- Explore reactive UI updates based on state
