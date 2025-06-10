@@ -1,2 +1,2 @@
 # todo_cubit_app
-this simple app 
+build simple app using cubit
