@@ -7,12 +7,24 @@ part 'task_state.dart';
 class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(TaskInitial());
 
-  void addTask(TaskModel title) {
-    List<TaskModel> task;
-    // task.map((e) => e.title,).toList();
-    //  emit(UpdateTask(task));
+  addTask(TaskModel title) {
+    emit(UpdateTask([...state.taskList, title]));
   }
 
-  void deleteTask(int id) {}
-  void toggeleTask(bool isCompleted) {}
+  deleteTask(int id) {
+    List<TaskModel> tasks =
+        state.taskList.where((taskId) => taskId.id != id).toList();
+    emit(UpdateTask(tasks));
+  }
+
+  toggeleTask(int id) {
+    final List<TaskModel> newList =
+        state.taskList.map((task) {
+          return task.id == id
+              ? task.copyWith(isCompleted: !task.isCompleted)
+              : task;
+        }).toList();
+
+    emit(UpdateTask(newList));
+  }
 }
