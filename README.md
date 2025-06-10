@@ -34,3 +34,11 @@ This app is built as a learning project to:
 - Apply **Equatable** to simplify equality checks in states and models
 - Practice clean code with separation of concerns (UI vs. logic)
 - Explore reactive UI updates based on state
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/yourusername/todo_cubit_app.git
+cd todo_cubit_app
+flutter pub get
+flutter run
