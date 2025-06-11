@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/cubit/task_cubit.dart';
+import 'package:todo_app/bloc/task_bloc.dart';
+import 'package:todo_app/bloc/task_event.dart';
+import 'package:todo_app/bloc/task_state.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskCubit(),
+      create: (context) => TaskBloc(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const HomePage(),
@@ -26,10 +28,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubitController = context.read<TaskCubit>();
+    final blocController = context.read<TaskBloc>();
     TextEditingController taskController = TextEditingController();
 
-    return BlocBuilder<TaskCubit, TaskState>(
+    return BlocBuilder<TaskBloc, TaskState>(
       builder: (context, state) {
         return Scaffold(
           body: Column(
@@ -37,14 +39,16 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 40,
+                padding: const EdgeInsets.only(
+                  top: 100,
+                  bottom: 10,
+                  right: 20,
+                  left: 20,
                 ),
                 child: TextField(
                   controller: taskController,
-                  decoration: InputDecoration(
-                    hintText: 'add task',
+                  decoration: const InputDecoration(
+                    hintText: 'Add task',
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -52,27 +56,27 @@ class HomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   if (taskController.text.isEmpty) return;
-                  cubitController.addTask(taskController.text);
+                  blocController.add(AddTask(taskController.text));
                   taskController.clear();
                 },
-                child: Text('SAVE'),
+                child: const Text('SAVE'),
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: state.taskList.length,
+                  itemCount: state.tasks.length,
                   itemBuilder: (ctx, index) {
                     return ListTile(
-                      title: Text('${state.taskList[index].title}'),
+                      title: Text(state.tasks[index].title),
                       trailing: IconButton(
                         onPressed: () {
-                          cubitController.deleteTask(state.taskList[index].id);
+                          blocController.add(DeleteTask(state.tasks[index].id));
                         },
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                       ),
                       leading: Checkbox(
-                        value: state.taskList[index].isCompleted,
+                        value: state.tasks[index].isCompleted,
                         onChanged: (value) {
-                          cubitController.toggeleTask(state.taskList[index].id);
+                          blocController.add(ToggleTask(state.tasks[index].id));
                         },
                       ),
                     );
