@@ -5,7 +5,8 @@ import 'package:todo_app/model/task.dart';
 import 'package:uuid/uuid.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
-  TaskBloc() : super(TaskInitial()) {
+  TaskBloc() : super(TaskInitial())
+   {
     on<AddTask>(_onAddTask);
     on<DeleteTask>(_onDeleteTask);
     on<ToggleTask>(_onToggleTask);
